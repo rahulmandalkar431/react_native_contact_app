@@ -63,20 +63,32 @@ const UserDetails: React.FC<UserDetailsProps> = (props) => {
 
     const handleConfirm = (date: Date) => {
         hideDatePicker();
-        setDateOfBirth(Utility.getFormattedDateForUserItem(Utility.getFormattedDate(date)));
+        setDateOfBirth(Utility.getFormattedDate(date));
+    }
+
+    const showMessage = (message:string) => {
+        Alert.alert('Incomplete Details',message,[
+            {
+                text:'OK',style:'cancel'
+            }
+        ])
     }
 
     const onSave = () => {
         if(userName.length<=2){
+            showMessage('Username should be more 2 characters');
             return;
         }
         if(mobileNumber.length!=10){
+            showMessage('Mobile number should be 10 digit');
             return;
         }
         if(!dateOfBirth){
+            showMessage('Select date of birth');
             return;
         }
         if(!imagePath){
+            showMessage('Set profile picture');
             return;
         }
 
@@ -97,16 +109,19 @@ const UserDetails: React.FC<UserDetailsProps> = (props) => {
             <Header
                 placement="left"
                 leftComponent={{
-                    icon: 'arrow-back', size: 24, color: ColorConstant.white, style: { padding: 4 }, onPress: () => {
+                    icon: 'arrow-back', size: 24, color: ColorConstant.white, style: { padding: 8 }, onPress: () => {
                         props.navigation.goBack();
                     }
                 }}
                 backgroundColor={ColorConstant.primaryColor}
                 centerComponent={{ text: 'User Details', style: { color: ColorConstant.white, fontSize: 18, fontWeight: 'bold' } }}
                 rightComponent={{
-                    icon: 'check', size: 24, color: ColorConstant.white, style: { padding: 4 }, onPress: () => {
+                    icon: 'check', size: 24, color: ColorConstant.white, style: { padding: 8 }, onPress: () => {
                        onSave();
                     }
+                }}
+                containerStyle={{
+                    borderBottomWidth:0
                 }}
             />
             <View style={{ justifyContent: 'center', alignItems: 'center', padding: 16, backgroundColor: ColorConstant.primaryColor }}>
@@ -116,6 +131,7 @@ const UserDetails: React.FC<UserDetailsProps> = (props) => {
                     source={
                         imagePath ? { uri: imagePath } : require('../assets/profile.png')
                     }
+                    placeholderStyle={styles.avtarPlaceholderStyle}
                     avatarStyle={imagePath ? styles.avtarStyleWithoutTint : styles.avtarStyleWithTint}
                 />
                 <Icon
@@ -193,7 +209,7 @@ const UserDetails: React.FC<UserDetailsProps> = (props) => {
                         placeholder="Date of Birth"
                         editable={false}
                         numberOfLines={1}
-                        value={dateOfBirth}
+                        value={dateOfBirth ? Utility.getFormattedDateForUserItem(Utility.getDateObjectFromString(dateOfBirth)) : ""}
                         placeholderTextColor={ColorConstant.textGrey}
                         inputStyle={styles.inputText}
                         autoCorrect={false}
@@ -235,5 +251,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         transform: [{ translateX: 32 }]
+    },
+    avtarPlaceholderStyle:{
+        backgroundColor:ColorConstant.white
     }
 })

@@ -32,7 +32,7 @@ const UserItem: React.FC<UserItemProps> = (props) => {
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{props.user.name}</Text>
                     <View style={styles.subTitleContainer}>
-                        <Text style={styles.subTitle}>{props.user.mobileNumber} | Born on {Utility.getFormattedDateForUserItem(props.user.dob)}</Text>
+                        <Text style={styles.subTitle}>{props.user.mobileNumber} | Born on {Utility.getFormattedDateForUserItem(Utility.getDateObjectFromString(props.user.dob))}</Text>
                     </View>
                 </View>
                 <Icon

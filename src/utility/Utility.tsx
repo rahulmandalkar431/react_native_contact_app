@@ -3,13 +3,15 @@ import { v4 as uuid } from 'uuid';
 
 class Utility {
 
-    static getFormattedDate(date: Date): string {
-        let newDt = moment(date,"YYYY-MM-DD")
-        return moment(newDt).format("YYYY-MM-DD");
+    static getDateObjectFromString(date: string): Date {
+        return new Date(date);
     }
 
-    static getFormattedDateForUserItem(date: string): string {
-       // let newDt = moment(date,"YYYY-MM-DD")
+    static getFormattedDate(date: Date): string {
+        return moment(date).format("YYYY-MM-DD");
+    }
+
+    static getFormattedDateForUserItem(date: Date): string {
         return moment(date).format('MMM DD,YYYY');
     }
 
@@ -17,7 +19,7 @@ class Utility {
         return uuid();
     }
 
-    
+
 }
 
 export default Utility;

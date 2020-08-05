@@ -47,7 +47,7 @@ const Users: React.FC<UsersProps> = (props) => {
                 backgroundColor={ColorConstant.primaryColor}
                 centerComponent={{ text: 'Contacts', style: { color: ColorConstant.white, fontSize: 18, fontWeight: 'bold' } }}
                 rightComponent={{
-                    icon: 'add', size: 24, color: ColorConstant.white, style: { padding: 4 }, onPress: () => {
+                    icon: 'add', size: 24, color: ColorConstant.white, style: { padding: 8 }, onPress: () => {
                         props.navigation.navigate('UserDetails', { isNew: true, userid: null });
                     }
                 }}
